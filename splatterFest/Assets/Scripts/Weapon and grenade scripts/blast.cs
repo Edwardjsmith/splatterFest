@@ -7,9 +7,9 @@ public class blast : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.GetComponent<shootTarget>())
+        if (other.GetComponent<gameEntity>())
         {
-            other.GetComponent<shootTarget>().takeDamage(10.0f);
+            other.GetComponent<gameEntity>().takeDamage(10.0f);
         }
 
         Destroy(gameObject, 0.5f);

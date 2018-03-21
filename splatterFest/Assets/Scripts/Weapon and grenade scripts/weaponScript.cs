@@ -24,7 +24,7 @@ public class weaponScript : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        gameObject.SetActive(false); //So the player does not start with a weapon
+        //gameObject.SetActive(false); //So the player does not start with a weapon
         grenadeTimer = 0.0f;
         grenadeCoolDown.gameObject.SetActive(false);
 	}
@@ -44,7 +44,7 @@ public class weaponScript : MonoBehaviour {
             grenadeCoolDown.gameObject.SetActive(true);
         }
 
-        if(grenadeTimer <=0)
+        if(grenadeTimer <= 0)
         {
             grenadeCoolDown.gameObject.SetActive(false);
         }
@@ -64,7 +64,7 @@ public class weaponScript : MonoBehaviour {
         RaycastHit hitTarget;
         if (Physics.Raycast(view.transform.position, view.transform.forward, out hitTarget, projectileRange))
         {
-            shootTarget target = hitTarget.transform.GetComponent<shootTarget>();
+            gameEntity target = hitTarget.transform.GetComponent<gameEntity>();
 
             GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
             Destroy(paint, 20.0f); //Destroys paint after 20 secs
@@ -74,7 +74,7 @@ public class weaponScript : MonoBehaviour {
                 target.takeDamage(weaponDamage); //inflict the damage
                
   
-                if(target.targetHealth <= 0)
+                if(target.Health <= 0)
                 {
                     Destroy(paint); //Destroys paint along with parent
                 }
