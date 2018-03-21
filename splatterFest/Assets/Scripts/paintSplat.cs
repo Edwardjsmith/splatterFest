@@ -6,7 +6,7 @@ public class paintSplat : MonoBehaviour {
 
     private void Start()
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = new Color(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2));
+        gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0, 2), Random.Range(0, 2), Random.Range(0, 2));
     }
 
     private void OnCollisionEnter(Collision collision)

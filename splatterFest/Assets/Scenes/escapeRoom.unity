@@ -3999,7 +3999,7 @@ MonoBehaviour:
   projectileRange: 100
   weaponDamage: 1
   musFlash: {fileID: 432404291}
-  paintSplat: {fileID: 1005555864204484, guid: b8937411c4d485d43acbc761bcd8c037, type: 2}
+  paintSplat: {fileID: 1462292625676630, guid: b8937411c4d485d43acbc761bcd8c037, type: 2}
   shotEffect: {fileID: 1087640896}
 --- !u!82 &1087640896
 AudioSource:
