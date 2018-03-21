@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.0067310934, y: 0.9768415, z: -0.2115888, w: 0.031075373}
     speed: 2
-    m_Value: {x: 0.0067310934, y: 0.9768415, z: -0.2115888, w: 0.031075373}
+    m_Value: {x: 0.0067310934, y: 0.97684157, z: -0.2115888, w: 0.031075373}
   m_Size:
     m_Target: 14.536272
     speed: 2
@@ -464,9 +464,9 @@ MonoBehaviour:
     height: 479
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3e270000
-    m_LastClickedID: 10046
-    m_ExpandedIDs: 1afcffff00000000e2260000
+    m_SelectedIDs: 7e260000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 1afcffff00000000e226000038270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -595,19 +595,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Music
+    - Assets/soundEffects
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Music
+  - Assets/soundEffects
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\2smite17\Documents\GitHub\splatterFest\splatterFest
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3a260000
-    m_LastClickedID: 9786
-    m_ExpandedIDs: 00000000202600005a26000060260000702600009226000000ca9a3bffffff7f
+    m_SelectedIDs: 2a260000
+    m_LastClickedID: 9770
+    m_ExpandedIDs: 00000000202600009226000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
