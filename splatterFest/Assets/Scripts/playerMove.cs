@@ -7,8 +7,7 @@ public class playerMove : MonoBehaviour
     private CharacterController playerController;
     
     public float speed;
-
-
+    
     private void Awake()
     {
         playerController = GetComponent<CharacterController>();
@@ -18,12 +17,14 @@ public class playerMove : MonoBehaviour
     private void Update()
     {
         movement();
+       
     }
 
     void movement()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+       
 
         //Movement
 
@@ -36,7 +37,10 @@ public class playerMove : MonoBehaviour
         //Implement said moves
         playerController.SimpleMove(moveHorizontal);
         playerController.SimpleMove(moveForward);
+
     }
+
+  
 
   
 }

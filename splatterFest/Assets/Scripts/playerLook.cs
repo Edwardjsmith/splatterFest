@@ -7,21 +7,29 @@ public class playerLook : MonoBehaviour
 {
 
     GameObject playerBody;
+    GameObject playerWeapon;
+
+    
+
     public float mouseSensitivity;
     bool seenObject;
 
     public Text seenObjectText;
-
     float xAxisClamp = 0.0f;
+
+    
 
     private void Awake()
     {
         //Lock cursor to centre of screen
         Cursor.lockState = CursorLockMode.Locked;
         playerBody = GameObject.FindGameObjectWithTag("playerBody");
+        playerWeapon = GameObject.FindGameObjectWithTag("playerWeapon");
 
         seenObject = false;
         seenObjectText.gameObject.SetActive(false);
+
+
     }
 
     // Update is called once per frame
@@ -75,41 +83,61 @@ public class playerLook : MonoBehaviour
 
         if (seenObject)
         {
-            seenObjectText.GetComponent<Text>().text = objectHit.collider.tag.ToString();
-            seenObjectText.gameObject.SetActive(true);
-
-
-
-            if (Input.GetButton("Fire1"))
+            if (objectHit.collider.tag != "Floor" || objectHit.collider.tag != "Untagged")
             {
-                objectHit.transform.SetParent(gameObject.transform);
-
-                if (objectHit.transform.GetComponent<Rigidbody>())
-                {
-                    objectHit.transform.GetComponent<Rigidbody>().useGravity = false;
-                }
-
-
+                seenObjectText.GetComponent<Text>().text = objectHit.collider.tag.ToString();
+                seenObjectText.gameObject.SetActive(true);
             }
-            else
-            {
-                objectHit.transform.SetParent(null);
 
-                if (objectHit.transform.GetComponent<Rigidbody>())
-                {
-                    objectHit.transform.GetComponent<Rigidbody>().useGravity = true;
-                }
-            }
+            pickUpWeapon(objectHit);
+            manipulateObject(objectHit);
+         
         }
         else
         {
             seenObjectText.gameObject.SetActive(false);
-            
-
         }
 
 
+        }
+
+    void pickUpWeapon(RaycastHit objectHit)
+    {
+        if(Input.GetKey(KeyCode.T))
+        {
+            if (objectHit.transform.tag == "Gun")
+            {
+                Destroy(objectHit.transform.gameObject);
+                playerWeapon.transform.gameObject.GetComponent<weaponScript>().gameObject.SetActive(true);
+            }
         }
     }
+
+    void manipulateObject(RaycastHit objectHit)
+    {
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            objectHit.transform.SetParent(gameObject.transform);
+
+            if (objectHit.transform.GetComponent<Rigidbody>())
+            {
+                objectHit.transform.GetComponent<Rigidbody>().useGravity = false;
+            }
+
+
+        }
+        else
+        {
+            objectHit.transform.SetParent(null);
+
+            if (objectHit.transform.GetComponent<Rigidbody>())
+            {
+                objectHit.transform.GetComponent<Rigidbody>().useGravity = true;
+            }
+        }
+    }
+
+    
+}
 
 
