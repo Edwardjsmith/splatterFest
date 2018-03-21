@@ -5,6 +5,7 @@ public class weaponScript : MonoBehaviour {
     public Camera view;
    
     public float projectileRange = 100f;
+    public float weaponDamage;
     public ParticleSystem musFlash;
     public GameObject paintSplat;
 
@@ -33,8 +34,8 @@ public class weaponScript : MonoBehaviour {
 
             if (target != null)
             {
-                target.takeDamage(2.0f);
-                GameObject paint = Instantiate(paintSplat, hitTarget.point, hitTarget.transform.rotation * Quaternion.Euler(1, 1, -90));
+                target.takeDamage(weaponDamage);
+                GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
 
                 Destroy(paint, 20.0f);
 

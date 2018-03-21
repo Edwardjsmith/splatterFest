@@ -83,7 +83,7 @@ public class playerLook : MonoBehaviour
 
         if (seenObject)
         {
-            if (objectHit.collider.tag != "Floor" || objectHit.collider.tag != "Untagged")
+            if (objectHit.collider.tag != "Floor" || objectHit.collider.tag != "Untagged" || objectHit.collider.tag != "playerBody")
             {
                 seenObjectText.GetComponent<Text>().text = objectHit.collider.tag.ToString();
                 seenObjectText.gameObject.SetActive(true);
