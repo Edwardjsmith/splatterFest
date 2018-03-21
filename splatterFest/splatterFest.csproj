@@ -78,6 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\blast.cs" />
+    <Compile Include="Assets\grenade.cs" />
     <Compile Include="Assets\Scripts\paintSplat.cs" />
     <Compile Include="Assets\Scripts\playerLook.cs" />
     <Compile Include="Assets\Scripts\playerMove.cs" />
