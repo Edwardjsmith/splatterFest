@@ -11,10 +11,9 @@ public class paintSplat : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision != null)
-        {
-            transform.SetParent(collision.transform);
-        }
+        
+            transform.SetParent(collision.transform); //Sets parent so paint splats will be destroyed when new parent is
+        
     }
 
 }
