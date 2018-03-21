@@ -9,10 +9,13 @@ public class playerMove : MonoBehaviour
     float speed;
     public float sprintSpeed;
     public float walkSpeed;
+
+    public static bool sprint;
     
     private void Awake()
     {
         playerController = GetComponent<CharacterController>();
+        sprint = false;
        
     }
 
@@ -26,6 +29,9 @@ public class playerMove : MonoBehaviour
     {
 
         speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed  : walkSpeed;
+
+        sprint = Input.GetKey(KeyCode.LeftShift) ? true : false;
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
        

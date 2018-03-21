@@ -8,8 +8,8 @@ public class weaponScript : MonoBehaviour {
     public float weaponDamage;
     public ParticleSystem musFlash;
     public GameObject paintSplat;
-    
 
+    public AudioSource shotEffect;
 
     // Use this for initialization
     void Start ()
@@ -20,7 +20,7 @@ public class weaponScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		if(Input.GetButtonDown("Fire1"))
+		if(Input.GetButtonDown("Fire1") && !playerMove.sprint)
         {
             Fire();
         }
@@ -29,7 +29,7 @@ public class weaponScript : MonoBehaviour {
 
     public void Fire()
     {
-        
+        shotEffect.Play();
         musFlash.Play(); //Starts muzzle flash effect
         
 
