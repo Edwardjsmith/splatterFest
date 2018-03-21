@@ -4,7 +4,7 @@ public class weaponScript : MonoBehaviour {
 
     public Camera view;
    
-    public float projectileRange = 100f;
+    public float projectileRange = 200f;
     public float weaponDamage;
     public ParticleSystem musFlash;
     public GameObject paintSplat;
@@ -22,6 +22,7 @@ public class weaponScript : MonoBehaviour {
         {
             Fire();
         }
+        Debug.DrawRay(view.transform.position, view.transform.forward * projectileRange, Color.red);
 	}
 
     public void Fire()
@@ -32,16 +33,17 @@ public class weaponScript : MonoBehaviour {
         {
             shootTarget target = hitTarget.transform.GetComponent<shootTarget>();
 
-            if (target != null)
+            GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
+            Destroy(paint, 20.0f); //Destroys paint after 20 secs
+
+            if (target != null) //As long as there is a target..
             {
-                target.takeDamage(weaponDamage);
-                GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
-
-                Destroy(paint, 20.0f);
-
+                target.takeDamage(weaponDamage); //inflict the damage
+               
+  
                 if(target.targetHealth <= 0)
                 {
-                    Destroy(paint);
+                    Destroy(paint); //Destroys paint along with parent
                 }
             }
         }
