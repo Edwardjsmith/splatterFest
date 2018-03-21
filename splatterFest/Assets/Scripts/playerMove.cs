@@ -6,7 +6,9 @@ public class playerMove : MonoBehaviour
 {
     private CharacterController playerController;
     
-    public float speed;
+    float speed;
+    public float sprintSpeed;
+    public float walkSpeed;
     
     private void Awake()
     {
@@ -22,6 +24,8 @@ public class playerMove : MonoBehaviour
 
     void movement()
     {
+
+        speed = Input.GetKey(KeyCode.LeftShift) ? sprintSpeed  : walkSpeed;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
        
