@@ -8,11 +8,13 @@ public class weaponScript : MonoBehaviour {
     public float weaponDamage;
     public ParticleSystem musFlash;
     public GameObject paintSplat;
+    
+
 
     // Use this for initialization
     void Start ()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); //So the player does not start with a weapon
 	}
 	
 	// Update is called once per frame
@@ -27,7 +29,10 @@ public class weaponScript : MonoBehaviour {
 
     public void Fire()
     {
-        musFlash.Play();
+        
+        musFlash.Play(); //Starts muzzle flash effect
+        
+
         RaycastHit hitTarget;
         if (Physics.Raycast(view.transform.position, view.transform.forward, out hitTarget, projectileRange))
         {

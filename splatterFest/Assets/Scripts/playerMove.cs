@@ -39,8 +39,4 @@ public class playerMove : MonoBehaviour
         playerController.SimpleMove(moveForward);
 
     }
-
-  
-
-  
 }

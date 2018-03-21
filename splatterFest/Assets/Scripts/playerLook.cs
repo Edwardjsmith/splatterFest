@@ -17,7 +17,6 @@ public class playerLook : MonoBehaviour
     public Text seenObjectText;
     float xAxisClamp = 0.0f;
 
-    
 
     private void Awake()
     {
@@ -28,7 +27,7 @@ public class playerLook : MonoBehaviour
 
         seenObject = false;
         seenObjectText.gameObject.SetActive(false);
-
+       
 
     }
 
@@ -52,7 +51,7 @@ public class playerLook : MonoBehaviour
         Vector3 targetRotationBody = playerBody.transform.rotation.eulerAngles;
 
         targetRotationCamera.x -= rotAmountY; //Rotatates camera in direction of cursor up and down
-        targetRotationCamera.z = 0; //Stops over rotation;
+        targetRotationCamera.z = 0; //Stops over-rotation;
         targetRotationBody.y += rotAmountX; // Rotates whole body to make movement easier
 
 
@@ -83,11 +82,10 @@ public class playerLook : MonoBehaviour
 
         if (seenObject)
         {
-            if (objectHit.collider.tag != "Floor" || objectHit.collider.tag != "Untagged" || objectHit.collider.tag != "playerBody")
-            {
+        
                 seenObjectText.GetComponent<Text>().text = objectHit.collider.tag.ToString();
                 seenObjectText.gameObject.SetActive(true);
-            }
+            
 
             pickUpWeapon(objectHit);
             manipulateObject(objectHit);
