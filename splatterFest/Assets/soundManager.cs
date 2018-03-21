@@ -33,6 +33,10 @@ public class soundManager : MonoBehaviour
             clip = music[1];
             playSound(clip);
         }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            musicSource.Pause();
+        }
 
         
 
