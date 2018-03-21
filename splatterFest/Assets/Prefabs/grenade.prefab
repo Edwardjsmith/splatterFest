@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e421f863e87fcee4e8c90fc685be49cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blastEffect: {fileID: 1649948938036090, guid: 4e84cf5cbaa061d4080b44ccdd657d68,
+  blastEffect: {fileID: 1462292625676630, guid: b8937411c4d485d43acbc761bcd8c037,
     type: 2}
   blastRadius: {fileID: 1569125267154374, guid: 7312b91b1eb2a16448a81e0e014b9e75,
     type: 2}
