@@ -12,16 +12,30 @@ public class soundManager : MonoBehaviour
 
     // Use this for initialization
 
-   
+    bool pauseMusic;
         
     
     private void Start()
     {
-        
+        pauseMusic = false;
     }
     // Update is called once per frame
     void Update ()
     {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            pauseMusic = !pauseMusic;
+
+            if (pauseMusic == true)
+            {
+                pauseAudio();
+            }
+            else if (pauseMusic == false)
+            {
+                resumeAudio();
+            }
+        }
+        
         
         if (Input.GetKeyDown(KeyCode.Y))
         {
@@ -33,20 +47,24 @@ public class soundManager : MonoBehaviour
             clip = music[1];
             playSound(clip);
         }
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            musicSource.Pause();
-        }
 
-        
+       
 
-        
 
     }
 
     void playSound(AudioClip clip)
     {
         musicSource.clip = clip;
+        musicSource.Play();
+    }
+
+    void pauseAudio()
+    {
+        musicSource.Pause();
+    }
+    void resumeAudio()
+    {
         musicSource.Play();
     }
 }
