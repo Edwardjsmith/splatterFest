@@ -6,7 +6,11 @@ public class gameEntity : MonoBehaviour
 {
     public float Health;
     protected float speed;
-    
+
+
+
+    public RaycastHit hitTarget;
+
     public void takeDamage(float amount)
     {
         Health -= amount;
@@ -16,5 +20,7 @@ public class gameEntity : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    
 
 }

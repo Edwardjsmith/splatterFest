@@ -32,6 +32,7 @@ public class chaseState : State<baseAI>
         public override void EnterState(baseAI owner)
         {
             Debug.Log("Entering chase");
+            owner.navMesh.SetDestination(owner.target.transform.position);
         }
 
         public override void ExitState(baseAI owner)
