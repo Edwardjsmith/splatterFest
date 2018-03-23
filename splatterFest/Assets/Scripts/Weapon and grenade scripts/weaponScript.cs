@@ -64,7 +64,7 @@ public class weaponScript : MonoBehaviour {
         RaycastHit hitTarget;
         if (Physics.Raycast(view.transform.position, view.transform.forward, out hitTarget, projectileRange))
         {
-            gameEntity target = hitTarget.transform.GetComponent<gameEntity>();
+            baseAI target = hitTarget.transform.GetComponent<baseAI>();
 
             GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
             Destroy(paint, 20.0f); //Destroys paint after 20 secs
