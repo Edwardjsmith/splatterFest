@@ -49,8 +49,16 @@ public class chaseState : State<baseAI>
             {
                 owner.stateMachine.changeState(idleState.Instance);
             }
+            if(owner.flee == true)
+            {
+                owner.stateMachine.changeState(fleeState.Instance);
+            }
+            if (owner.fire == true)
+            {
+                owner.stateMachine.changeState(attackingState.Instance);
+            }
 
-        if (owner.target != null && owner.fire == false)
+        if (owner.target != null)
         {
             float distance = Vector3.Distance(owner.target.transform.position, owner.transform.position);
 
@@ -58,11 +66,10 @@ public class chaseState : State<baseAI>
             {
                 owner.navMesh.SetDestination(owner.target.transform.position);
             }
+
+           
         }
-        else if(owner.fire == true)
-        {
-            owner.stateMachine.changeState(attackingState.Instance);
-        }
+        
     }
     }
 

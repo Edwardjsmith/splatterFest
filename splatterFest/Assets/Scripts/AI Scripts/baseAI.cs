@@ -22,8 +22,13 @@ public class baseAI : gameEntity {
     public RaycastHit hitTarget;
 
     float scaleLimit = 0.5f;
+
+
     public bool fire = false;
     public bool chase = false;
+    public bool flee = false;
+
+    public GameObject healPoint;
 
     // Use this for initialization
     void Start ()
@@ -42,23 +47,28 @@ public class baseAI : gameEntity {
             gameEntity target = chaseTarget.transform.GetComponent<playerMove>();
         }
 
-        Vector3 direction = Random.insideUnitCircle * scaleLimit;
-       
+            Vector3 direction = Random.insideUnitCircle * scaleLimit;
+
         if (Physics.Raycast(transform.position, Vector3.forward + direction, out hitTarget))
         {
-            if (hitTarget.transform.GetComponent<playerMove>())
-            {
-                fire = true;
-            }
-            else
-            {
-                fire = false;
-            }
+            fire = hitTarget.transform.GetComponent<playerMove>();
+        }
+        if (Health <= 5)
+        {
+            flee = true;
+            fire = false;
+            chase = false;
         }
         else
         {
-            fire = false;
+            flee = false;
         }
+
+
+
+
+
+
 
         Debug.DrawLine(transform.position, transform.forward * viewDistance);
         stateMachine.Update();

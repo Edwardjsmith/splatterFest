@@ -44,10 +44,15 @@ public class attackingState : State<baseAI>
 
     public override void UpdateState(baseAI owner)
     {
+        if (owner.flee == true)
+        {
+            owner.stateMachine.changeState(fleeState.Instance);
+        }
         if (!owner.fire)
         {
             owner.stateMachine.changeState(chaseState.Instance);
         }
+    
         if (fireRate <= 0)
         {
             owner.Fire();
