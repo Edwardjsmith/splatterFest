@@ -76,7 +76,12 @@ public class baseAI : gameEntity {
                 GameObject paint;
         if (!hitTarget.transform.GetComponent<playerMove>())
         {
+           
+            
             paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+
+            
+            
             Destroy(paint, 20.0f);
         }
         else

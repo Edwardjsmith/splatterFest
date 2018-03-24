@@ -553,7 +553,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 0
-  m_InflateMesh: 0
+  m_InflateMesh: 1
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: ff0c207e36429344fb62316724b24cff, type: 3}
 --- !u!1 &754814914
@@ -771,9 +771,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: ff0c207e36429344fb62316724b24cff, type: 3}
       propertyPath: m_SkinWidth
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2300000, guid: ff0c207e36429344fb62316724b24cff, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: ff0c207e36429344fb62316724b24cff, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: ff0c207e36429344fb62316724b24cff, type: 3}
   m_IsPrefabParent: 0
 --- !u!1001 &1087640890
