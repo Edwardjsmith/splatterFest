@@ -21,7 +21,7 @@ public class baseAI : gameEntity {
     public RaycastHit chaseTarget;
     public RaycastHit hitTarget;
 
-
+    float scaleLimit = 0.5f;
     public bool fire = false;
     public bool chase = false;
 
@@ -42,17 +42,25 @@ public class baseAI : gameEntity {
             gameEntity target = chaseTarget.transform.GetComponent<playerMove>();
         }
 
-
-        if (Physics.Raycast(transform.position, transform.forward, out hitTarget))
+        Vector3 direction = Random.insideUnitCircle * scaleLimit;
+       
+        if (Physics.Raycast(transform.position, Vector3.forward + direction, out hitTarget))
         {
-            fire = true;
+            if (hitTarget.transform.GetComponent<playerMove>())
+            {
+                fire = true;
+            }
+            else
+            {
+                fire = false;
+            }
         }
         else
         {
             fire = false;
         }
 
-            Debug.DrawLine(transform.position, transform.forward * viewDistance);
+        Debug.DrawLine(transform.position, transform.forward * viewDistance);
         stateMachine.Update();
     }
 
@@ -65,7 +73,16 @@ public class baseAI : gameEntity {
                 shotEffect.Play();
                 musFlash.Play(); //Starts muzzle flash effect
 
-                GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+                GameObject paint;
+        if (!hitTarget.transform.GetComponent<playerMove>())
+        {
+            paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+            Destroy(paint, 20.0f);
+        }
+        else
+        {
+            hitTarget.transform.GetComponent<gameEntity>().takeDamage(1.0f);
+        }
            
         
         

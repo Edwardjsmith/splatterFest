@@ -21,6 +21,7 @@ public class weaponScript : MonoBehaviour {
 
     float grenadeTimer;
 
+    float scaleLimit = 0.05f;
     // Use this for initialization
     void Start ()
     {
@@ -59,25 +60,26 @@ public class weaponScript : MonoBehaviour {
     {
         shotEffect.Play();
         musFlash.Play(); //Starts muzzle flash effect
+
+        Vector3 direction = Random.insideUnitCircle  * scaleLimit;
         
 
+        
         RaycastHit hitTarget;
-        if (Physics.Raycast(view.transform.position, view.transform.forward, out hitTarget, projectileRange))
+        if (Physics.Raycast(view.transform.position, transform.forward + direction, out hitTarget, projectileRange))
         {
             baseAI target = hitTarget.transform.GetComponent<baseAI>();
 
-            GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
-            Destroy(paint, 20.0f); //Destroys paint after 20 secs
+            if (!hitTarget.transform.GetComponent<baseAI>()) //If target is not an enemy
+            {
+                GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
+                Destroy(paint, 20.0f); //Destroys paint after 20 secs
+            }
 
-            if (target != null) //As long as there is a target..
+
+            else //As long as there is an enemy..
             {
                 target.takeDamage(weaponDamage); //inflict the damage
-               
-  
-                if(target.Health <= 0)
-                {
-                    Destroy(paint); //Destroys paint along with parent
-                }
             }
         }
 

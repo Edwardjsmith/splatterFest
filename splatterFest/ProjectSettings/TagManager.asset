@@ -10,6 +10,7 @@ TagManager:
   - Gun
   - playerWeapon
   - paintSplat
+  - Space station walls
   layers:
   - Default
   - TransparentFX
