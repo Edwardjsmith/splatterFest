@@ -33,13 +33,14 @@ public class attackingState : State<baseAI>
 
     public override void EnterState(baseAI owner)
     {
-        Debug.Log("Entering chase");
-        
+        Debug.Log("Entering Fire");
+        owner.navMesh.isStopped = true;
     }
 
     public override void ExitState(baseAI owner)
     {
-        Debug.Log("Exiting chase");
+        Debug.Log("Exiting fire");
+        owner.navMesh.isStopped = false;
     }
 
     public override void UpdateState(baseAI owner)
@@ -48,16 +49,20 @@ public class attackingState : State<baseAI>
         {
             owner.stateMachine.changeState(fleeState.Instance);
         }
-        if (!owner.fire)
+        if(!owner.fire)
         {
             owner.stateMachine.changeState(chaseState.Instance);
+
         }
-    
+        
         if (fireRate <= 0)
         {
             owner.Fire();
             fireRate = 2.0f;
         }
+
+        
+
         fireRate -= Time.deltaTime;
     }
 }

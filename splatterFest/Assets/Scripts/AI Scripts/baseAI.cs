@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class baseAI : gameEntity {
 
     public gameEntity target;
-    public float viewDistance = 2.0f;
+    public float viewDistance = 0.1f;
     public stateMachine<baseAI> stateMachine { get; set; }
     public NavMeshAgent navMesh;
 
@@ -21,7 +21,7 @@ public class baseAI : gameEntity {
     public RaycastHit chaseTarget;
     public RaycastHit hitTarget;
 
-    float scaleLimit = 0.5f;
+    float scaleLimit = 0.1f;
 
 
     public bool fire = false;
@@ -29,6 +29,7 @@ public class baseAI : gameEntity {
     public bool flee = false;
 
     public GameObject healPoint;
+
 
     // Use this for initialization
     void Start ()
@@ -45,11 +46,15 @@ public class baseAI : gameEntity {
         if (Physics.SphereCast(transform.position, viewDistance, transform.forward, out chaseTarget))
         {
             gameEntity target = chaseTarget.transform.GetComponent<playerMove>();
+            if(target)
+            {
+                chase = true;
+            }
         }
 
-            Vector3 direction = Random.insideUnitCircle * scaleLimit;
+            
 
-        if (Physics.Raycast(transform.position, Vector3.forward + direction, out hitTarget))
+        if (Physics.Raycast(transform.position, transform.forward, out hitTarget))
         {
             fire = hitTarget.transform.GetComponent<playerMove>();
         }
@@ -68,7 +73,7 @@ public class baseAI : gameEntity {
 
 
 
-
+      
 
         Debug.DrawLine(transform.position, transform.forward * viewDistance);
         stateMachine.Update();
@@ -78,27 +83,29 @@ public class baseAI : gameEntity {
     public void Fire()
     {
 
-        
-        
-                shotEffect.Play();
-                musFlash.Play(); //Starts muzzle flash effect
+        Vector3 direction = Random.insideUnitCircle * scaleLimit;
 
-                GameObject paint;
-        if (!hitTarget.transform.GetComponent<playerMove>())
-        {
-           
-            
-            paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+        shotEffect.Play();
+         musFlash.Play(); //Starts muzzle flash effect
 
-            
-            
-            Destroy(paint, 20.0f);
+            if(Physics.Raycast(transform.position, transform.forward + direction, out hitTarget))
+            {
+            GameObject paint;
+            if (!hitTarget.transform.GetComponent<playerMove>())
+            {
+
+
+                paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+
+
+
+                Destroy(paint, 20.0f);
+            }
+            else
+            {
+                hitTarget.transform.GetComponent<gameEntity>().takeDamage(1.0f);
+            }
         }
-        else
-        {
-            hitTarget.transform.GetComponent<gameEntity>().takeDamage(1.0f);
-        }
-           
         
         
 

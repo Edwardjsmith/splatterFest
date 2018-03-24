@@ -45,7 +45,9 @@ public class chaseState : State<baseAI>
 
         public override void UpdateState(baseAI owner)
         {
-            if(owner.target == null)
+        
+
+        if (owner.target == null)
             {
                 owner.stateMachine.changeState(idleState.Instance);
             }
@@ -62,14 +64,14 @@ public class chaseState : State<baseAI>
         {
             float distance = Vector3.Distance(owner.target.transform.position, owner.transform.position);
 
-            if (distance <= owner.viewDistance)
+            if (distance <= owner.viewDistance && owner.fire == false)
             {
                 owner.navMesh.SetDestination(owner.target.transform.position);
             }
-
+      
            
         }
         
     }
-    }
+}
 
