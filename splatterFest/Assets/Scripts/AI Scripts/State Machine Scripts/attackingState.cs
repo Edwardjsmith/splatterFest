@@ -5,7 +5,7 @@ using StateMachine;
 
 public class attackingState : State<baseAI>
 {
-
+    float fireRate = 0;
     private static attackingState _instance;
 
     private attackingState()
@@ -34,7 +34,7 @@ public class attackingState : State<baseAI>
     public override void EnterState(baseAI owner)
     {
         Debug.Log("Entering chase");
-        owner.Fire();
+        
     }
 
     public override void ExitState(baseAI owner)
@@ -44,9 +44,15 @@ public class attackingState : State<baseAI>
 
     public override void UpdateState(baseAI owner)
     {
-        if (!owner.target)
+        if (!owner.fire)
         {
             owner.stateMachine.changeState(chaseState.Instance);
         }
+        if (fireRate <= 0)
+        {
+            owner.Fire();
+            fireRate = 2.0f;
+        }
+        fireRate -= Time.deltaTime;
     }
 }

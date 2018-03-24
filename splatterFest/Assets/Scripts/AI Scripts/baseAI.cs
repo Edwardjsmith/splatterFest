@@ -4,8 +4,8 @@ using UnityEngine.AI;
 
 public class baseAI : gameEntity {
 
-    public playerMove target;
-    public float viewDistance;
+    public gameEntity target;
+    public float viewDistance = 2.0f;
     public stateMachine<baseAI> stateMachine { get; set; }
     public NavMeshAgent navMesh;
 
@@ -18,61 +18,64 @@ public class baseAI : gameEntity {
 
     public AudioSource shotEffect;
 
+    public RaycastHit chaseTarget;
+    public RaycastHit hitTarget;
+
+
+    public bool fire = false;
+    public bool chase = false;
+
     // Use this for initialization
     void Start ()
     {
         stateMachine = new stateMachine<baseAI>(this);
         stateMachine.changeState(idleState.Instance);
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
 
-        
-        Debug.DrawRay(transform.position, transform.forward * viewDistance, Color.red);
+        if (Physics.SphereCast(transform.position, viewDistance, transform.forward, out chaseTarget))
+        {
+            gameEntity target = chaseTarget.transform.GetComponent<playerMove>();
+        }
 
+
+        if (Physics.Raycast(transform.position, transform.forward, out hitTarget))
+        {
+            fire = true;
+        }
+        else
+        {
+            fire = false;
+        }
+
+            Debug.DrawLine(transform.position, transform.forward * viewDistance);
         stateMachine.Update();
     }
 
 
     public void Fire()
     {
-        shotEffect.Play();
-        musFlash.Play(); //Starts muzzle flash effect
 
+        
+        
+                shotEffect.Play();
+                musFlash.Play(); //Starts muzzle flash effect
 
-
-        if (Physics.Raycast(transform.position, transform.forward, out hitTarget, projectileRange))
-        {
-            gameEntity target = hitTarget.transform.GetComponent<gameEntity>();
-
-            GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal)); //Spawns the paint splat
-            Destroy(paint, 20.0f); //Destroys paint after 20 secs
-
-            if (target != null) //As long as there is a target..
-            {
-                target.takeDamage(weaponDamage); //inflict the damage
-
-
-                if (target.Health <= 0)
-                {
-                    Destroy(paint); //Destroys paint along with parent
-                }
-            }
-        }
-
+                GameObject paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
+           
+        
+        
 
 
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        target = other.transform.GetComponent<playerMove>();
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, viewDistance);
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        target = null;
-    }
 }

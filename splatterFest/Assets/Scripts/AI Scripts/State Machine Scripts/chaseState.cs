@@ -32,7 +32,10 @@ public class chaseState : State<baseAI>
         public override void EnterState(baseAI owner)
         {
             Debug.Log("Entering chase");
-            owner.navMesh.SetDestination(owner.target.transform.position);
+
+
+
+      
         }
 
         public override void ExitState(baseAI owner)
@@ -46,6 +49,20 @@ public class chaseState : State<baseAI>
             {
                 owner.stateMachine.changeState(idleState.Instance);
             }
+
+        if (owner.target != null && owner.fire == false)
+        {
+            float distance = Vector3.Distance(owner.target.transform.position, owner.transform.position);
+
+            if (distance <= owner.viewDistance)
+            {
+                owner.navMesh.SetDestination(owner.target.transform.position);
+            }
         }
+        else if(owner.fire == true)
+        {
+            owner.stateMachine.changeState(attackingState.Instance);
+        }
+    }
     }
 

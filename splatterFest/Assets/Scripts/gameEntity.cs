@@ -9,7 +9,7 @@ public class gameEntity : MonoBehaviour
 
 
 
-    public RaycastHit hitTarget;
+    
 
     public void takeDamage(float amount)
     {
