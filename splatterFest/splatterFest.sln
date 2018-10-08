@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "splatterFest", "splatterFest.csproj", "{BA60C5DF-8123-F3F5-1827-71143DAFBB41}"
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "splatterFest", "Assembly-CSharp.csproj", "{06AEDFF6-3FC5-0490-23A2-8B643549EA9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BA60C5DF-8123-F3F5-1827-71143DAFBB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA60C5DF-8123-F3F5-1827-71143DAFBB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA60C5DF-8123-F3F5-1827-71143DAFBB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA60C5DF-8123-F3F5-1827-71143DAFBB41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06AEDFF6-3FC5-0490-23A2-8B643549EA9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06AEDFF6-3FC5-0490-23A2-8B643549EA9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06AEDFF6-3FC5-0490-23A2-8B643549EA9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06AEDFF6-3FC5-0490-23A2-8B643549EA9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

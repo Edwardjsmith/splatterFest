@@ -11,6 +11,7 @@ TagManager:
   - playerWeapon
   - paintSplat
   - Space station walls
+  - healPoint
   layers:
   - Default
   - TransparentFX

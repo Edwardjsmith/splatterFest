@@ -40,9 +40,6 @@ public class idleState : State<baseAI>
 
     public override void UpdateState(baseAI owner)
     {
-        if(owner.target != null)
-        {
-            owner.stateMachine.changeState(chaseState.Instance);
-        }
+        owner.Idle();
     }
 }

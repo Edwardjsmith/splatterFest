@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class playerLook : MonoBehaviour
 {
 
-    GameObject playerBody;
-    GameObject playerWeapon;
+    UnityEngine.GameObject playerBody;
+    UnityEngine.GameObject playerWeapon;
 
     
 
@@ -22,8 +22,8 @@ public class playerLook : MonoBehaviour
     {
         //Lock cursor to centre of screen
         Cursor.lockState = CursorLockMode.Locked;
-        playerBody = GameObject.FindGameObjectWithTag("playerBody");
-        playerWeapon = GameObject.FindGameObjectWithTag("playerWeapon");
+        playerBody = UnityEngine.GameObject.FindGameObjectWithTag("playerBody");
+        playerWeapon = UnityEngine.GameObject.FindGameObjectWithTag("playerWeapon");
 
         seenObject = false;
         seenObjectText.gameObject.SetActive(false);

@@ -41,13 +41,7 @@ public class fleeState : State<baseAI>
 
     public override void UpdateState(baseAI owner)
     {
-
-        owner.navMesh.SetDestination(owner.healPoint.transform.position);
-
-        if (owner.Health == 10)
-        {
-            owner.stateMachine.changeState(chaseState.Instance);
-        }
+        owner.Flee();
     }
         
 }

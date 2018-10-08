@@ -5,116 +5,144 @@ using UnityEngine.AI;
 public class baseAI : gameEntity {
 
     public gameEntity target;
-    public float viewDistance = 0.1f;
-    public stateMachine<baseAI> stateMachine { get; set; }
+    float viewDistance = 30f;
+    stateMachine<baseAI> stateMachine { get; set; }
     public NavMeshAgent navMesh;
 
-    public float projectileRange = 200f;
-    public float weaponDamage;
+    RaycastHit chaseTarget;
 
+    public GameObject[] healPoint;
 
-    public ParticleSystem musFlash;
-    public GameObject paintSplat;
-
-    public AudioSource shotEffect;
-
-    public RaycastHit chaseTarget;
-    public RaycastHit hitTarget;
-
-    float scaleLimit = 0.1f;
-
-
-    public bool fire = false;
-    public bool chase = false;
-    public bool flee = false;
-
-    public GameObject healPoint;
+    float fireRate = 0;
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         stateMachine = new stateMachine<baseAI>(this);
         stateMachine.changeState(idleState.Instance);
-        
+        healPoint = GameObject.FindGameObjectsWithTag("healPoint");
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        if (Physics.SphereCast(transform.position, viewDistance, transform.forward, out chaseTarget))
-        {
-            gameEntity target = chaseTarget.transform.GetComponent<playerMove>();
-            if(target)
-            {
-                chase = true;
-            }
-        }
-
-            
-
-        if (Physics.Raycast(transform.position, transform.forward, out hitTarget))
-        {
-            fire = hitTarget.transform.GetComponent<playerMove>();
-        }
-        if (Health <= 5)
-        {
-            flee = true;
-            fire = false;
-            chase = false;
-        }
-        else
-        {
-            flee = false;
-        }
-
-
-
-
-
-      
-
         Debug.DrawLine(transform.position, transform.forward * viewDistance);
+        target = FindClosestEnemy();
         stateMachine.Update();
     }
 
-
-    public void Fire()
+    public void Attack()
     {
+        float distance = Vector3.Distance(target.transform.position, transform.position);
 
-        Vector3 direction = Random.insideUnitCircle * scaleLimit;
+        if (Health <= 5)
+        {
+            stateMachine.changeState(fleeState.Instance);
+        }
 
-        shotEffect.Play();
-         musFlash.Play(); //Starts muzzle flash effect
+        if (distance > viewDistance / 2)
+        {
+            stateMachine.changeState(chaseState.Instance);
+        }
+        else if (fireRate <= 0)
+        {
+            Fire();
+            fireRate = 2.0f;
+        }
 
-            if(Physics.Raycast(transform.position, transform.forward + direction, out hitTarget))
-            {
-            GameObject paint;
-            if (!hitTarget.transform.GetComponent<playerMove>())
-            {
+        fireRate -= Time.deltaTime;
+    }
 
+    public void Chase()
+    {
+        float distance = Vector3.Distance(target.transform.position, transform.position);
 
-                paint = Instantiate(paintSplat, hitTarget.point, Quaternion.FromToRotation(Vector3.up, hitTarget.normal));
-
-
-
-                Destroy(paint, 20.0f);
-            }
-            else
-            {
-                hitTarget.transform.GetComponent<gameEntity>().takeDamage(1.0f);
-            }
+        if (distance > viewDistance)
+        {
+            stateMachine.changeState(idleState.Instance);
+        }
+        if (distance <= viewDistance)
+        {
+            navMesh.SetDestination(target.transform.position);
+        }
+        if (distance < viewDistance / 2)
+        {
+            stateMachine.changeState(attackingState.Instance);
         }
         
         
-
-
     }
+
+    public void Flee()
+    {
+        navMesh.SetDestination(closestHealPoint().transform.position);
+
+        if (Health == 10)
+        {
+            stateMachine.changeState(chaseState.Instance);
+        }
+    }
+
+    public void Idle()
+    {
+        if (target != null)
+        {
+            stateMachine.changeState(chaseState.Instance);
+        }
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
+    }
+
+    gameEntity FindClosestEnemy()
+    {
+        gameEntity[] gos = FindObjectsOfType<gameEntity>();
+        gameEntity closest = null;
+
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach(gameEntity go in gos)
+        {
+            if (go != this)
+            {
+                Vector3 diff = go.transform.position - position;
+                float curDistance = diff.sqrMagnitude;
+
+                if (curDistance < distance)
+                {
+                    closest = go;
+                    distance = curDistance;
+                }
+            }
+        }
+
+        return closest;
+    }
+
+    GameObject closestHealPoint()
+    {
+        
+        GameObject closest = null;
+
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in healPoint)
+        {
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+
+            if (curDistance < distance)
+            {
+                closest = go;
+                distance = curDistance;
+            }
+        }
+
+        return closest;
     }
 
 }
